@@ -91,8 +91,8 @@
 
     function createFullHeart() {
       heartParticles = [];
-      // Giảm scale xuống còn 70%
-      const scale = Math.min(window.innerWidth, window.innerHeight) / 28;
+      // Giảm kích thước thêm 20% so với bản trước
+      const scale = Math.min(window.innerWidth, window.innerHeight) / 34;
       for (let i = 0; i < 15000; i++) {
         const angle = Math.random() * 2 * Math.PI;
         const r = Math.random();
@@ -112,7 +112,7 @@
     function drawHeart() {
       ctx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
       const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 1.8; // thấp hơn để chừa chỗ cho tiêu đề
+      const cy = window.innerHeight / 2.3; // đẩy trái tim lên trên
       const pulse = 1 + 0.05 * Math.sin(Date.now() / 200);
       
       heartParticles.forEach(p => {
@@ -153,7 +153,7 @@
       document.body.appendChild(wish);
 
       const startY = window.innerHeight;
-      const endY = window.innerHeight / 1.8 - 50;
+      const endY = window.innerHeight / 2.3 + 40;
       const duration = 12000;
       let start = null;
 
