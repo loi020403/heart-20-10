@@ -20,9 +20,22 @@
       width: 100%; height: 100%;
     }
 
+    .title {
+      position: absolute;
+      top: 8%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: clamp(20px, 5vw, 48px);
+      color: #ff99cc;
+      font-weight: bold;
+      text-shadow: 0 0 20px #ff66a3, 0 0 40px #ff1493;
+      z-index: 10;
+      white-space: nowrap;
+    }
+
     .wish {
       position: absolute;
-      font-size: 20px;
+      font-size: clamp(16px, 3vw, 28px);
       opacity: 0;
       white-space: nowrap;
       z-index: 5;
@@ -37,22 +50,37 @@
   <canvas id="stars"></canvas>
   <canvas id="heart"></canvas>
 
+  <div class="title">💖 Happy Vietnamese Women’s Day 💐</div>
+
   <script>
+    // --- Sao rơi ---
     const starCanvas = document.getElementById('stars');
     const sCtx = starCanvas.getContext('2d');
     starCanvas.width = window.innerWidth;
     starCanvas.height = window.innerHeight;
 
-    const stars = Array(250).fill().map(() => ({ x: Math.random() * starCanvas.width, y: Math.random() * starCanvas.height, r: Math.random() * 1.3, d: Math.random() * 0.5 }));
+    const stars = Array(250).fill().map(() => ({
+      x: Math.random() * starCanvas.width,
+      y: Math.random() * starCanvas.height,
+      r: Math.random() * 1.3,
+      d: Math.random() * 0.5
+    }));
 
     function drawStars() {
       sCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
       sCtx.fillStyle = 'rgba(255,255,255,0.9)';
-      stars.forEach(s => { sCtx.beginPath(); sCtx.arc(s.x, s.y, s.r, 0, 2 * Math.PI); sCtx.fill(); s.y += s.d; if (s.y > starCanvas.height) s.y = 0; });
+      stars.forEach(s => {
+        sCtx.beginPath();
+        sCtx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+        sCtx.fill();
+        s.y += s.d;
+        if (s.y > starCanvas.height) s.y = 0;
+      });
       requestAnimationFrame(drawStars);
     }
     drawStars();
 
+    // --- Trái tim ---
     const heartCanvas = document.getElementById('heart');
     const ctx = heartCanvas.getContext('2d');
     heartCanvas.width = window.innerWidth;
@@ -63,21 +91,28 @@
 
     function createFullHeart() {
       heartParticles = [];
-      const scale = 14;
+      // tăng scale để trái tim to hơn
+      const scale = Math.min(window.innerWidth, window.innerHeight) / 20;
       for (let i = 0; i < 15000; i++) {
         const angle = Math.random() * 2 * Math.PI;
         const r = Math.random();
         const heartX = 16 * Math.pow(Math.sin(angle), 3);
         const heartY = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));
         const z = Math.random() * 20 - 10;
-        heartParticles.push({ x: heartX * scale * r, y: heartY * scale * r, z: z, color: colorList[Math.floor(Math.random() * colorList.length)], size: 1 + Math.random() * 1.5 });
+        heartParticles.push({
+          x: heartX * scale * r,
+          y: heartY * scale * r,
+          z: z,
+          color: colorList[Math.floor(Math.random() * colorList.length)],
+          size: 1 + Math.random() * 1.5
+        });
       }
     }
 
     function drawHeart() {
       ctx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
       const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 3;
+      const cy = window.innerHeight / 1.8; // thấp hơn để chừa chỗ cho tiêu đề
       const pulse = 1 + 0.05 * Math.sin(Date.now() / 200);
       
       heartParticles.forEach(p => {
@@ -94,6 +129,7 @@
     createFullHeart();
     drawHeart();
 
+    // --- Lời chúc ---
     const wishes = [
       'Chúc mừng ngày Phụ Nữ Việt Nam 20/10 💖',
       'Chúc bạn luôn xinh đẹp và hạnh phúc 💕',
@@ -117,7 +153,7 @@
       document.body.appendChild(wish);
 
       const startY = window.innerHeight;
-      const endY = window.innerHeight / 3 + 50;
+      const endY = window.innerHeight / 1.8 - 50;
       const duration = 12000;
       let start = null;
 
@@ -128,7 +164,7 @@
         const y = startY - ease * (startY - endY);
         wish.style.top = `${y}px`;
         wish.style.opacity = 1 - progress;
-        wish.style.transform = `translateX(-50%) scale(${0.5 + progress * 0.8})`;
+        wish.style.transform = `translateX(-50%) scale(${0.6 + progress * 0.8})`;
         if (progress < 1) requestAnimationFrame(animate);
         else wish.remove();
       }
