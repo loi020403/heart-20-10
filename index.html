@@ -91,8 +91,8 @@
 
     function createFullHeart() {
       heartParticles = [];
-      // tăng scale để trái tim to hơn
-      const scale = Math.min(window.innerWidth, window.innerHeight) / 20;
+      // Giảm scale xuống còn 70%
+      const scale = Math.min(window.innerWidth, window.innerHeight) / 28;
       for (let i = 0; i < 15000; i++) {
         const angle = Math.random() * 2 * Math.PI;
         const r = Math.random();
