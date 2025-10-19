@@ -97,6 +97,7 @@
       border: 2px solid rgba(255, 255, 255, 0.6);
       animation: glowBox 2.5s ease-in-out infinite alternate;
       z-index: 10;
+      cursor: pointer;
     }
 
     @keyframes glowBox {
@@ -124,11 +125,15 @@
       filter: blur(1px) brightness(1.1);
     }
 
-    .qr-canvas {
+    .qr-img {
       position: relative;
       z-index: 2;
       border-radius: 20px;
-      opacity: 0.95;
+      width: 240px;
+      height: 240px;
+      background: #fff;
+      padding: 10px;
+      object-fit: contain;
     }
 
     .qr-container:hover .flower-bg {
@@ -157,7 +162,6 @@
   </style>
 </head>
 <body>
-  <!-- Ánh sáng nền -->
   <div class="light"></div>
 
   <!-- Hiệu ứng bokeh -->
@@ -174,7 +178,7 @@
     }
   </script>
 
-  <!-- Hoa và icon dễ thương -->
+  <!-- Hoa và icon rơi -->
   <script>
     const icons = ["🌸", "💖", "🌷", "💗", "🌹", "💞", "🌺"];
     for (let i = 0; i < 35; i++) {
@@ -190,25 +194,25 @@
   </script>
 
   <!-- QR code -->
-  <div class="qr-container">
+  <div class="qr-container" onclick="window.open(GITHUB_URL, '_blank')">
     <img src="flower.jpg" class="flower-bg" alt="Flower background">
-    <canvas id="qrcode" class="qr-canvas"></canvas>
+    <img id="qrcode" class="qr-img" alt="QR Code">
   </div>
 
   <h1>💖 Happy Vietnamese Women’s Day 💐</h1>
 
-  <!-- QR code generator -->
+  <!-- QR generator -->
   <script src="https://cdn.jsdelivr.net/npm/qrious/dist/qrious.min.js"></script>
   <script>
     const GITHUB_URL = "https://loi020403.github.io/heart-20-10/";
     const qr = new QRious({
-      element: document.getElementById("qrcode"),
       value: GITHUB_URL,
       size: 240,
       level: "H",
-      background: "rgba(255,255,255,0)",
-      foreground: "#2b2b2b"
+      background: "#ffffff",
+      foreground: "#000000"
     });
+    document.getElementById("qrcode").src = qr.toDataURL("image/png");
   </script>
 </body>
 </html>
