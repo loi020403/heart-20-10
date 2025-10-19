@@ -23,11 +23,11 @@
 
     .wish {
       position: absolute;
-      font-size: 16px; /* giảm chữ điện thoại */
+      font-size: 26px; /* tăng chữ */
       opacity: 0;
       white-space: nowrap;
       z-index: 5;
-      text-shadow: 0 0 12px rgba(255,100,150,0.9);
+      text-shadow: 0 0 18px rgba(255,100,150,0.9);
       color: #ffb6c1;
       left: 50%;
       transform: translateX(-50%);
@@ -35,14 +35,10 @@
   </style>
 </head>
 <body>
-  <audio id="bgMusic" src="music.mp3" autoplay loop></audio>
   <canvas id="stars"></canvas>
   <canvas id="heart"></canvas>
 
   <script>
-    const bgMusic = document.getElementById('bgMusic');
-    bgMusic.play().catch(()=>{});
-
     const starCanvas = document.getElementById('stars');
     const sCtx = starCanvas.getContext('2d');
     starCanvas.width = window.innerWidth;
@@ -68,14 +64,14 @@
 
     function createFullHeart() {
       heartParticles = [];
-      const scale = 9; // giảm để vừa màn hình điện thoại
-      for (let i = 0; i < 8000; i++) {
+      const scale = 18; /* tăng kích thước trái tim */
+      for (let i = 0; i < 15000; i++) {
         const angle = Math.random() * 2 * Math.PI;
         const r = Math.random();
         const heartX = 16 * Math.pow(Math.sin(angle), 3);
         const heartY = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));
-        const z = Math.random() * 10 - 5;
-        heartParticles.push({ x: heartX * scale * r, y: heartY * scale * r, z: z, color: colorList[Math.floor(Math.random() * colorList.length)], size: 1 + Math.random() * 1.5 });
+        const z = Math.random() * 20 - 10;
+        heartParticles.push({ x: heartX * scale * r, y: heartY * scale * r, z: z, color: colorList[Math.floor(Math.random() * colorList.length)], size: 1.2 + Math.random() * 1.5 });
       }
     }
 
@@ -84,7 +80,7 @@
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 3;
       const pulse = 1 + 0.05 * Math.sin(Date.now() / 200);
-
+      
       heartParticles.forEach(p => {
         const depthScale = 1 + p.z * 0.02;
         ctx.beginPath();
@@ -141,15 +137,6 @@
     }
 
     setInterval(createWish, 1500);
-
-    // resize canvas theo màn hình
-    window.addEventListener('resize', () => {
-      starCanvas.width = window.innerWidth;
-      starCanvas.height = window.innerHeight;
-      heartCanvas.width = window.innerWidth;
-      heartCanvas.height = window.innerHeight;
-      createFullHeart();
-    });
   </script>
 </body>
 </html>
