@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Happy 20-10 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <style>
     html, body {
       margin: 0;
@@ -128,7 +129,7 @@
         const y = startY - ease * (startY - endY);
         wish.style.top = `${y}px`;
         wish.style.opacity = 1 - progress;
-        wish.style.transform = `translateX(-50%) scale(${0.6 + progress * 0.9})`; /* tăng scale */
+        wish.style.transform = `translateX(-50%) scale(${0.6 + progress * 0.9})`;
         if (progress < 1) requestAnimationFrame(animate);
         else wish.remove();
       }
