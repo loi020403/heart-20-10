@@ -23,7 +23,7 @@
 
     .wish {
       position: absolute;
-      font-size: 26px; /* tăng chữ */
+      font-size: 26px;
       opacity: 0;
       white-space: nowrap;
       z-index: 5;
@@ -32,11 +32,18 @@
       left: 50%;
       transform: translateX(-50%);
     }
+
+    audio {
+      display: none; /* ẩn trình phát nhạc */
+    }
   </style>
 </head>
 <body>
   <canvas id="stars"></canvas>
   <canvas id="heart"></canvas>
+
+  <!-- Nhạc nền tự động phát -->
+  <audio id="bgMusic" src="music.mp3" autoplay loop></audio>
 
   <script>
     const starCanvas = document.getElementById('stars');
@@ -64,7 +71,7 @@
 
     function createFullHeart() {
       heartParticles = [];
-      const scale = 18; /* tăng kích thước trái tim */
+      const scale = 18;
       for (let i = 0; i < 15000; i++) {
         const angle = Math.random() * 2 * Math.PI;
         const r = Math.random();
@@ -137,6 +144,10 @@
     }
 
     setInterval(createWish, 1500);
+
+    // Hỗ trợ autoplay nhạc trên mobile khi chạm vào màn hình
+    const bgMusic = document.getElementById('bgMusic');
+    document.body.addEventListener('touchstart', () => { bgMusic.play(); }, { once: true });
   </script>
 </body>
 </html>
