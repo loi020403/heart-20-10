@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy 20-10 💖</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      background: radial-gradient(ellipse at bottom, #1a002d 0%, #000 100%);
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+    }
+
+    .wish {
+      position: absolute;
+      font-size: 20px;
+      opacity: 0;
+      white-space: nowrap;
+      z-index: 5;
+      text-shadow: 0 0 15px rgba(255,100,150,0.9);
+      color: #ffb6c1;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+  <canvas id="heart"></canvas>
+
+  <script>
+    const starCanvas = document.getElementById('stars');
+    const sCtx = starCanvas.getContext('2d');
+    starCanvas.width = window.innerWidth;
+    starCanvas.height = window.innerHeight;
+
+    const stars = Array(250).fill().map(() => ({ x: Math.random() * starCanvas.width, y: Math.random() * starCanvas.height, r: Math.random() * 1.3, d: Math.random() * 0.5 }));
+
+    function drawStars() {
+      sCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+      sCtx.fillStyle = 'rgba(255,255,255,0.9)';
+      stars.forEach(s => { sCtx.beginPath(); sCtx.arc(s.x, s.y, s.r, 0, 2 * Math.PI); sCtx.fill(); s.y += s.d; if (s.y > starCanvas.height) s.y = 0; });
+      requestAnimationFrame(drawStars);
+    }
+    drawStars();
+
+    const heartCanvas = document.getElementById('heart');
+    const ctx = heartCanvas.getContext('2d');
+    heartCanvas.width = window.innerWidth;
+    heartCanvas.height = window.innerHeight;
+
+    let heartParticles = [];
+    const colorList = ['#ff4d6d', '#ff99ac', '#ff3366', '#ff6699', '#ff1a75'];
+
+    function createFullHeart() {
+      heartParticles = [];
+      const scale = 14;
+      for (let i = 0; i < 15000; i++) {
+        const angle = Math.random() * 2 * Math.PI;
+        const r = Math.random();
+        const heartX = 16 * Math.pow(Math.sin(angle), 3);
+        const heartY = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));
+        const z = Math.random() * 20 - 10;
+        heartParticles.push({ x: heartX * scale * r, y: heartY * scale * r, z: z, color: colorList[Math.floor(Math.random() * colorList.length)], size: 1 + Math.random() * 1.5 });
+      }
+    }
+
+    function drawHeart() {
+      ctx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 3;
+      const pulse = 1 + 0.05 * Math.sin(Date.now() / 200);
+      
+      heartParticles.forEach(p => {
+        const depthScale = 1 + p.z * 0.02;
+        ctx.beginPath();
+        ctx.arc(cx + p.x * pulse, cy + p.y * pulse, p.size * depthScale, 0, 2 * Math.PI);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      });
+
+      requestAnimationFrame(drawHeart);
+    }
+
+    createFullHeart();
+    drawHeart();
+
+    const wishes = [
+      'Chúc mừng ngày Phụ Nữ Việt Nam 20/10 💖',
+      'Chúc bạn luôn xinh đẹp và hạnh phúc 💕',
+      'Luôn rạng rỡ và yêu đời 🌸',
+      'Mỗi ngày đều là niềm vui 🌟',
+      'Tỏa sáng như những vì sao trên trời ✨',
+      'Mãi được yêu thương và trân trọng ❤️',
+      'Chúc chị em luôn tự tin, xinh đẹp và thành công 💐',
+      'Hạnh phúc ngập tràn trong tim 💞'
+    ];
+
+    let wishIndex = 0;
+
+    function createWish() {
+      const text = wishes[wishIndex];
+      wishIndex = (wishIndex + 1) % wishes.length;
+
+      const wish = document.createElement('div');
+      wish.className = 'wish';
+      wish.textContent = text;
+      document.body.appendChild(wish);
+
+      const startY = window.innerHeight;
+      const endY = window.innerHeight / 3 + 50;
+      const duration = 12000;
+      let start = null;
+
+      function animate(time) {
+        if (!start) start = time;
+        const progress = (time - start) / duration;
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const y = startY - ease * (startY - endY);
+        wish.style.top = `${y}px`;
+        wish.style.opacity = 1 - progress;
+        wish.style.transform = `translateX(-50%) scale(${0.5 + progress * 0.8})`;
+        if (progress < 1) requestAnimationFrame(animate);
+        else wish.remove();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    setInterval(createWish, 1500);
+  </script>
+</body>
+</html>
