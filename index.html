@@ -23,7 +23,7 @@
 
     .wish {
       position: absolute;
-      font-size: 26px;
+      font-size: 22px; /* giảm chữ */
       opacity: 0;
       white-space: nowrap;
       z-index: 5;
@@ -32,20 +32,17 @@
       left: 50%;
       transform: translateX(-50%);
     }
-
-    audio {
-      display: none; /* ẩn trình phát nhạc */
-    }
   </style>
 </head>
 <body>
+  <audio id="bgMusic" src="music.mp3" autoplay loop></audio>
   <canvas id="stars"></canvas>
   <canvas id="heart"></canvas>
 
-  <!-- Nhạc nền tự động phát -->
-  <audio id="bgMusic" src="music.mp3" autoplay loop></audio>
-
   <script>
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.play().catch(()=>{}); // cố gắng bật nhạc ngay
+
     const starCanvas = document.getElementById('stars');
     const sCtx = starCanvas.getContext('2d');
     starCanvas.width = window.innerWidth;
@@ -71,7 +68,7 @@
 
     function createFullHeart() {
       heartParticles = [];
-      const scale = 18;
+      const scale = 14; /* giảm kích thước trái tim */
       for (let i = 0; i < 15000; i++) {
         const angle = Math.random() * 2 * Math.PI;
         const r = Math.random();
@@ -87,7 +84,7 @@
       const cx = window.innerWidth / 2;
       const cy = window.innerHeight / 3;
       const pulse = 1 + 0.05 * Math.sin(Date.now() / 200);
-      
+
       heartParticles.forEach(p => {
         const depthScale = 1 + p.z * 0.02;
         ctx.beginPath();
@@ -144,10 +141,6 @@
     }
 
     setInterval(createWish, 1500);
-
-    // Hỗ trợ autoplay nhạc trên mobile khi chạm vào màn hình
-    const bgMusic = document.getElementById('bgMusic');
-    document.body.addEventListener('touchstart', () => { bgMusic.play(); }, { once: true });
   </script>
 </body>
 </html>
