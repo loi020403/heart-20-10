@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>💖 Happy Vietnamese Women’s Day 💐</title>
+  <title>Happy 20-10 💖</title>
   <style>
     html, body {
       margin: 0;
@@ -20,39 +20,35 @@
       width: 100%; height: 100%;
     }
 
-    /* 💐 Tiêu đề lớn và nổi bật hơn */
+    /* 🌸 Dòng chữ Happy to hơn và sáng hơn */
     .title {
       position: absolute;
-      top: 6%;
+      top: 7%;
       left: 50%;
       transform: translateX(-50%);
-      font-size: clamp(30px, 7vw, 70px); /* to hơn trước ~15% */
+      font-size: clamp(28px, 6vw, 64px); /* to hơn so với bản trước */
       color: #ffb3d9;
       font-weight: bold;
-      letter-spacing: 1px;
-      text-shadow:
-        0 0 15px #ff66b3,
-        0 0 30px #ff1493,
-        0 0 50px #ff66cc;
+      text-shadow: 0 0 25px #ff66a3, 0 0 45px #ff1493, 0 0 80px #ff66cc;
       z-index: 10;
       white-space: nowrap;
       animation: glow 2.5s ease-in-out infinite alternate;
     }
 
     @keyframes glow {
-      from { text-shadow: 0 0 10px #ff66b3, 0 0 20px #ff1493; }
-      to { text-shadow: 0 0 30px #ff66cc, 0 0 60px #ff33aa; }
+      from { text-shadow: 0 0 15px #ff66a3, 0 0 30px #ff1493; }
+      to { text-shadow: 0 0 35px #ff99cc, 0 0 70px #ff33aa; }
     }
 
-    /* 🌸 Các dòng chữ chúc */
+    /* 💬 Câu chúc to hơn, rõ hơn */
     .wish {
       position: absolute;
-      font-size: clamp(18px, 3.8vw, 34px); /* tăng thêm ~20% */
+      font-size: clamp(20px, 4vw, 34px);
       opacity: 0;
       white-space: nowrap;
       z-index: 5;
-      text-shadow: 0 0 15px rgba(255,100,150,0.9);
-      color: #ffb6c1;
+      text-shadow: 0 0 18px rgba(255,120,170,0.9);
+      color: #ffc0cb;
       left: 50%;
       transform: translateX(-50%);
     }
@@ -65,68 +61,125 @@
   <div class="title">💖 Happy Vietnamese Women’s Day 💐</div>
 
   <script>
-    // --- Sao rơi ---
+    // 🌟 Sao rơi
     const starCanvas = document.getElementById('stars');
-    const ctxS = starCanvas.getContext('2d');
-    starCanvas.width = innerWidth;
-    starCanvas.height = innerHeight;
+    const sCtx = starCanvas.getContext('2d');
+    starCanvas.width = window.innerWidth;
+    starCanvas.height = window.innerHeight;
 
-    let stars = Array(100).fill().map(() => ({
+    const stars = Array(250).fill().map(() => ({
       x: Math.random() * starCanvas.width,
       y: Math.random() * starCanvas.height,
-      size: Math.random() * 1.5,
-      speed: Math.random() * 0.8 + 0.2
+      r: Math.random() * 1.3,
+      d: Math.random() * 0.5
     }));
 
     function drawStars() {
-      ctxS.clearRect(0, 0, starCanvas.width, starCanvas.height);
-      ctxS.fillStyle = 'white';
+      sCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
+      sCtx.fillStyle = 'rgba(255,255,255,0.9)';
       stars.forEach(s => {
-        ctxS.beginPath();
-        ctxS.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-        ctxS.fill();
-        s.y += s.speed;
+        sCtx.beginPath();
+        sCtx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+        sCtx.fill();
+        s.y += s.d;
         if (s.y > starCanvas.height) s.y = 0;
       });
       requestAnimationFrame(drawStars);
     }
     drawStars();
 
-    // --- Trái tim ---
+    // 💖 Trái tim
     const heartCanvas = document.getElementById('heart');
     const ctx = heartCanvas.getContext('2d');
-    heartCanvas.width = innerWidth;
-    heartCanvas.height = innerHeight;
+    heartCanvas.width = window.innerWidth;
+    heartCanvas.height = window.innerHeight;
 
-    const particles = [];
-    const heartYShift = -80; // 🔼 đẩy trái tim lên gần dòng chữ hơn
+    let heartParticles = [];
+    const colorList = ['#ff4d6d', '#ff99ac', '#ff3366', '#ff6699', '#ff1a75'];
 
-    for (let i = 0; i < 300; i++) {
-      const t = Math.PI * 2 * Math.random();
-      const r = 16 * Math.sin(t) ** 3;
-      const x = 16 * Math.pow(Math.sin(t), 3);
-      const y = 13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t);
-      particles.push({
-        x: x * 15 + heartCanvas.width / 2,
-        y: -y * 15 + heartCanvas.height / 2 + heartYShift,
-        size: Math.random() * 2 + 1,
-        color: `hsl(${Math.random() * 30 + 330},100%,70%)`,
-        alpha: Math.random()
-      });
+    function createFullHeart() {
+      heartParticles = [];
+      // 🔹 Nhỏ hơn ~20%, và nằm cao hơn gần chữ Happy
+      const scale = Math.min(window.innerWidth, window.innerHeight) / 36;
+      for (let i = 0; i < 15000; i++) {
+        const angle = Math.random() * 2 * Math.PI;
+        const r = Math.random();
+        const heartX = 16 * Math.pow(Math.sin(angle), 3);
+        const heartY = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));
+        const z = Math.random() * 20 - 10;
+        heartParticles.push({
+          x: heartX * scale * r,
+          y: heartY * scale * r,
+          z: z,
+          color: colorList[Math.floor(Math.random() * colorList.length)],
+          size: 1 + Math.random() * 1.5
+        });
+      }
     }
 
     function drawHeart() {
       ctx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
-      particles.forEach(p => {
+      const cx = window.innerWidth / 2;
+      const cy = window.innerHeight / 3; // 💖 Đẩy trái tim lên cao hơn gần chữ Happy
+      const pulse = 1 + 0.05 * Math.sin(Date.now() / 200);
+      
+      heartParticles.forEach(p => {
+        const depthScale = 1 + p.z * 0.02;
         ctx.beginPath();
-        ctx.fillStyle = `rgba(${255},${105 + Math.random()*50},${180},${p.alpha})`;
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.arc(cx + p.x * pulse, cy + p.y * pulse, p.size * depthScale, 0, 2 * Math.PI);
+        ctx.fillStyle = p.color;
         ctx.fill();
-        p.alpha = 0.6 + 0.4 * Math.sin(Date.now() / 300 + p.x);
       });
+
       requestAnimationFrame(drawHeart);
     }
+
+    createFullHeart();
     drawHeart();
+
+    // 🌸 Lời chúc to và rõ hơn
+    const wishes = [
+      'Chúc mừng ngày Phụ Nữ Việt Nam 20/10 💖',
+      'Chúc bạn luôn xinh đẹp và hạnh phúc 💕',
+      'Luôn rạng rỡ và yêu đời 🌸',
+      'Mỗi ngày đều là niềm vui 🌟',
+      'Tỏa sáng như những vì sao trên trời ✨',
+      'Mãi được yêu thương và trân trọng ❤️',
+      'Chúc chị em luôn tự tin, xinh đẹp và thành công 💐',
+      'Hạnh phúc ngập tràn trong tim 💞'
+    ];
+
+    let wishIndex = 0;
+
+    function createWish() {
+      const text = wishes[wishIndex];
+      wishIndex = (wishIndex + 1) % wishes.length;
+
+      const wish = document.createElement('div');
+      wish.className = 'wish';
+      wish.textContent = text;
+      document.body.appendChild(wish);
+
+      const startY = window.innerHeight;
+      const endY = window.innerHeight / 3 + 70; // 💬 Cao hơn để gần trái tim
+      const duration = 12000;
+      let start = null;
+
+      function animate(time) {
+        if (!start) start = time;
+        const progress = (time - start) / duration;
+        const ease = 1 - Math.pow(1 - progress, 3);
+        const y = startY - ease * (startY - endY);
+        wish.style.top = `${y}px`;
+        wish.style.opacity = 1 - progress;
+        wish.style.transform = `translateX(-50%) scale(${0.7 + progress * 0.8})`;
+        if (progress < 1) requestAnimationFrame(animate);
+        else wish.remove();
+      }
+      requestAnimationFrame(animate);
+    }
+
+    setInterval(createWish, 1500);
   </script>
 </body>
 </html>
