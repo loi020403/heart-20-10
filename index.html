@@ -65,7 +65,7 @@
   <h1>💖 Happy Vietnamese Women’s Day 💐</h1>
 
   <script>
-    /* 🌟 Hiệu ứng sao lấp lánh */
+    /* 🌟 Sao lấp lánh */
     const starCanvas = document.getElementById('stars');
     const sCtx = starCanvas.getContext('2d');
     starCanvas.width = window.innerWidth;
@@ -94,7 +94,7 @@
     }
     drawStars();
 
-    /* 💗 Hiệu ứng trái tim 3D */
+    /* 💗 Trái tim */
     const heartCanvas = document.getElementById('heart');
     const ctx = heartCanvas.getContext('2d');
     heartCanvas.width = window.innerWidth;
@@ -105,7 +105,7 @@
 
     function createFullHeart() {
       heartParticles = [];
-      const baseScale = window.innerWidth < 768 ? 30 : 18;
+      const baseScale = window.innerWidth < 768 ? 28 : 18; // lớn hơn nữa
       for (let i = 0; i < 16000; i++) {
         const angle = Math.random() * 2 * Math.PI;
         const r = Math.random();
@@ -125,8 +125,8 @@
     function drawHeart() {
       ctx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
       const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 2;
-      const pulse = 1 + 0.12 * Math.sin(Date.now() / 180);
+      const cy = window.innerHeight / 2.8; // nâng trái tim lên gần dòng chữ hơn
+      const pulse = 1 + 0.10 * Math.sin(Date.now() / 200);
       
       heartParticles.forEach(p => {
         const depthScale = 1 + p.z * 0.02;
@@ -141,15 +141,16 @@
     createFullHeart();
     drawHeart();
 
-    /* 💬 Lời chúc bay lên */
+    /* 💬 Lời chúc tiếng Việt */
     const wishes = [
       'Chúc mừng ngày Phụ Nữ Việt Nam 20/10 💖',
-      'Wishing you happiness and beauty every day 💕',
-      'You are strong, smart, and beautiful 🌸',
-      'Keep smiling and shining like stars ✨',
-      'May your heart always be full of joy 💞',
-      'You deserve all the love and happiness ❤️',
-      'Be confident, be lovely, and be YOU 💐'
+      'Chúc bạn luôn xinh đẹp và hạnh phúc 💕',
+      'Luôn rạng rỡ và yêu đời 🌸',
+      'Mỗi ngày đều là niềm vui 🌟',
+      'Tỏa sáng như những vì sao trên trời ✨',
+      'Mãi được yêu thương và trân trọng ❤️',
+      'Chúc chị em luôn tự tin, xinh đẹp và thành công 💐',
+      'Hạnh phúc ngập tràn trong tim 💞'
     ];
 
     let wishIndex = 0;
@@ -164,8 +165,8 @@
       document.body.appendChild(wish);
 
       const startY = window.innerHeight;
-      const endY = window.innerHeight / 2.5;
-      const duration = 13000;
+      const endY = window.innerHeight / 2 + 100; // vị trí dừng cao hơn
+      const duration = 12000;
       let start = null;
 
       function animate(time) {
@@ -175,7 +176,7 @@
         const y = startY - ease * (startY - endY);
         wish.style.top = `${y}px`;
         wish.style.opacity = 1 - progress;
-        wish.style.transform = `translateX(-50%) scale(${0.8 + progress * 1}) rotate(${Math.sin(progress * 5) * 5}deg)`;
+        wish.style.transform = `translateX(-50%) scale(${0.8 + progress * 0.8})`; // không xoay, không nghiêng
         if (progress < 1) requestAnimationFrame(animate);
         else wish.remove();
       }
