@@ -22,7 +22,7 @@
 
     .wish {
       position: absolute;
-      font-size: 20px;
+      font-size: 24px;
       opacity: 0;
       white-space: nowrap;
       z-index: 5;
@@ -30,6 +30,14 @@
       color: #ffb6c1;
       left: 50%;
       transform: translateX(-50%);
+      text-align: center;
+    }
+
+    /* --- Tăng kích thước khi mở bằng điện thoại --- */
+    @media (max-width: 768px) {
+      .wish {
+        font-size: 30px;
+      }
     }
   </style>
 </head>
@@ -43,12 +51,23 @@
     starCanvas.width = window.innerWidth;
     starCanvas.height = window.innerHeight;
 
-    const stars = Array(250).fill().map(() => ({ x: Math.random() * starCanvas.width, y: Math.random() * starCanvas.height, r: Math.random() * 1.3, d: Math.random() * 0.5 }));
+    const stars = Array(250).fill().map(() => ({
+      x: Math.random() * starCanvas.width,
+      y: Math.random() * starCanvas.height,
+      r: Math.random() * 1.3,
+      d: Math.random() * 0.5
+    }));
 
     function drawStars() {
       sCtx.clearRect(0, 0, starCanvas.width, starCanvas.height);
       sCtx.fillStyle = 'rgba(255,255,255,0.9)';
-      stars.forEach(s => { sCtx.beginPath(); sCtx.arc(s.x, s.y, s.r, 0, 2 * Math.PI); sCtx.fill(); s.y += s.d; if (s.y > starCanvas.height) s.y = 0; });
+      stars.forEach(s => {
+        sCtx.beginPath();
+        sCtx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+        sCtx.fill();
+        s.y += s.d;
+        if (s.y > starCanvas.height) s.y = 0;
+      });
       requestAnimationFrame(drawStars);
     }
     drawStars();
@@ -63,21 +82,28 @@
 
     function createFullHeart() {
       heartParticles = [];
-      const scale = 14;
+      // Tăng scale nếu là điện thoại
+      const baseScale = window.innerWidth < 768 ? 22 : 14;
       for (let i = 0; i < 15000; i++) {
         const angle = Math.random() * 2 * Math.PI;
         const r = Math.random();
         const heartX = 16 * Math.pow(Math.sin(angle), 3);
         const heartY = -(13 * Math.cos(angle) - 5 * Math.cos(2 * angle) - 2 * Math.cos(3 * angle) - Math.cos(4 * angle));
         const z = Math.random() * 20 - 10;
-        heartParticles.push({ x: heartX * scale * r, y: heartY * scale * r, z: z, color: colorList[Math.floor(Math.random() * colorList.length)], size: 1 + Math.random() * 1.5 });
+        heartParticles.push({
+          x: heartX * baseScale * r,
+          y: heartY * baseScale * r,
+          z: z,
+          color: colorList[Math.floor(Math.random() * colorList.length)],
+          size: 1.5 + Math.random() * 2
+        });
       }
     }
 
     function drawHeart() {
       ctx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
       const cx = window.innerWidth / 2;
-      const cy = window.innerHeight / 3;
+      const cy = window.innerHeight / 2.5;
       const pulse = 1 + 0.05 * Math.sin(Date.now() / 200);
       
       heartParticles.forEach(p => {
@@ -128,7 +154,7 @@
         const y = startY - ease * (startY - endY);
         wish.style.top = `${y}px`;
         wish.style.opacity = 1 - progress;
-        wish.style.transform = `translateX(-50%) scale(${0.5 + progress * 0.8})`;
+        wish.style.transform = `translateX(-50%) scale(${0.6 + progress * 0.9})`;
         if (progress < 1) requestAnimationFrame(animate);
         else wish.remove();
       }
