@@ -97,23 +97,32 @@
 
     /* 🌸 Hoa rõ hơn (tăng brightness, contrast, saturate) */
     .flower-bg {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 30px;
-      opacity: 1;
-      z-index: 1;
-      filter: brightness(2.1) contrast(1.5) saturate(1.7);
-      animation: flowerMove 6s ease-in-out infinite alternate;
-      transition: all 0.8s ease;
-    }
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 30px;
+  z-index: 1;
+  opacity: 1;
+  filter: brightness(1.25) contrast(1.15) saturate(1.05);
+  animation: flowerMove 6s ease-in-out infinite alternate;
+  transition: all 0.8s ease;
+}
 
     @keyframes flowerMove {
-      0% { transform: scale(1) rotate(0deg); filter: brightness(2) contrast(1.4) saturate(1.7); }
-      50% { transform: scale(1.05) rotate(0.3deg); filter: brightness(2.2) contrast(1.5) saturate(1.8); }
-      100% { transform: scale(1) rotate(-0.3deg); filter: brightness(2.1) contrast(1.45) saturate(1.75); }
-    }
+  0% {
+    transform: scale(1);
+    filter: brightness(1.2) contrast(1.1) saturate(1);
+  }
+  50% {
+    transform: scale(1.04);
+    filter: brightness(1.3) contrast(1.15) saturate(1.05);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1.25) contrast(1.12) saturate(1.02);
+  }
+}
 
     /* QR sáng nhẹ hơn, nền trong suốt hơn */
     .qr-img {
@@ -201,5 +210,6 @@
   </script>
 </body>
 </html>
+
 
 
